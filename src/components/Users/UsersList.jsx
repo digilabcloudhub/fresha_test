@@ -10,7 +10,7 @@ const UsersList = () => {
    const [active, setIsActive] = useState(null);
 
       const selectUser =(e)=>{
-        console.log(active);
+        
         fetchData();
        
       }
