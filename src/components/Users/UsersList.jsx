@@ -7,10 +7,10 @@ const UsersList = () => {
    const [user,setUser]=useState([]);
    const [open,setOpen]=useState(false);
    const [sideContent,setSideContent]=useState([]);
-   const [isActive, setIsActive] = useState(null);
+   const [active, setIsActive] = useState(null);
 
       const selectUser =(e)=>{
-        console.log('in change');
+        console.log(active);
         fetchData();
        
       }
@@ -19,7 +19,7 @@ const UsersList = () => {
 
         const response = await fetch("https://randomuser.me/api/?results=10");
         const json = await response.json();
-        console.log(json);
+        
        setUser(json.results);
 
 
@@ -32,14 +32,11 @@ const UsersList = () => {
         const id=e;
         setIsActive(id);
         
-        
         if(open=== false)
         setOpen(!open)
 
         const filtered=user.filter(item => item.id.value === id );
-
-     
-      setSideContent(filtered)
+       setSideContent(filtered)
       }
       
   return (
@@ -67,7 +64,8 @@ const UsersList = () => {
             <div className='user_det'>  
             {
           user.map((user)=>
-          <div className={`user_det_block ${isActive===user.id.value ? 'active' : ''}`} >
+          
+            <div className='user_det_block'>
             <div className='item' key ={user.id.value} onClick={()=>show(user.id.value)}>
             <div className='flex-head'><span>FL</span></div>
             <div className='flex-item'>{user.name.first}{user.name.last}<br/>Developer</div>
@@ -80,13 +78,14 @@ const UsersList = () => {
           
         } 
         
-      
+      {/* <div className={`user_det_block ${active===user.id.value ? 'active' : ''}`} > */}
 </div>
     </div>
     
     <div className='side_panel'>
-        {sideContent.map(item=>
-        <div className='side_panel_sec'><div className='side_panel_top'>
+        {sideContent.map((item,index)=>
+        <div className='side_panel_sec' >
+          <div className='side_panel_top'>
           <div className='initial'><span>FL</span></div>
           <div className='side_panel_name'>{item.name.first}  {item.name.last}</div>
           
